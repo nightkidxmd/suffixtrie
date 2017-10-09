@@ -12,7 +12,7 @@ object Test {
         val ret = LinkedList<Array<String>>()
         val random = Random()
         for(i in 1..size){
-            val nameLength = random.nextInt(dataMaxLength)+1
+            val nameLength = random.nextInt(dataMaxLength).plus(1)
             val name = Array(nameLength,init = {""})
             for(j in 0..nameLength-1){
                 name[j] = seeds[random.nextInt(seeds.size)]
@@ -26,7 +26,7 @@ object Test {
 
     @JvmStatic
     fun main(args: Array<String>) {
-        val raw = makeData(1000000,4)
+        val raw = makeData(10000,10)
         var start = System.currentTimeMillis()
         val tree = TrieTree<String, StringData>()
         raw.forEachIndexed { i, indexedValue ->
@@ -34,14 +34,15 @@ object Test {
         }
         System.out.println("build tree ${System.currentTimeMillis()-start} ms")
         var sum = 0L
-        for(i in 1..100){
+        val TEST_COUNT = 1
+        for(i in 1..TEST_COUNT){
             start = System.currentTimeMillis()
-            val data = tree.find(StringData(keys = arrayOf("三","四")))
+            val data = tree.find(StringData(keys = arrayOf("老","四")))
             val cost = System.currentTimeMillis()-start
-            System.out.println("search $i: $cost ms --- ${data.size}")
+            System.out.println("search $i: $cost ms --- ${data.size}\n$data")
             sum+=cost
         }
-        System.out.println("avg: ${sum/100}  ms")
+        System.out.println("avg: ${sum/TEST_COUNT}  ms")
     }
 
     class StringData(val data: Int =0,keys:Array<String>?=null) : NodeData<String>(keys) {
