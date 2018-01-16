@@ -5,16 +5,9 @@ import java.util.*
 /**
  * Created by XMD on 2017/9/26.
  */
-class TreeNode<K,T:NodeData<K>> {
-    private var parent:TreeNode<K,T>? = null
+class TreeNode<K,T:NodeData<K>>(private var key: K?,private var parent: TreeNode<K,T>?=null) {
     private var children:HashMap<K,TreeNode<K,T>>? = null
     private var data:LinkedHashSet<T>? = null
-    private var key:K?=null
-
-    constructor(key: K?,parent: TreeNode<K,T>?=null) {
-        this.parent = parent
-        this.key = key
-    }
 
     fun addData(data:T){
         if(this.data == null){
